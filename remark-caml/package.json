@@ -1,0 +1,88 @@
+{
+  "name": "remark-caml",
+  "private": false,
+  "version": "0.0.1",
+  "description": "A remark plugin for caml (semantic) attributes in markdown.",
+  "license": "GPL-3.0",
+  "author": {
+    "name": "manunamz",
+    "email": "manuanmz@pm.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wikibonsai/remark-caml.git",
+    "directory": "remark-caml"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "npx del dist",
+    "rebuild": "yarn clean && yarn build",
+    "lint": "eslint ./src ./test --ext .ts",
+    "pretest": "yarn rebuild",
+    "test": "mocha",
+    "dev:fix-links": "yarn link micromark-extension-caml mdast-util-caml"
+  },
+  "dependencies": {
+    "mdast-util-caml": "^0.0.4",
+    "micromark-extension-caml": "^0.0.1",
+    "mocha": "10.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-transform-runtime": "^7.19.1",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-typescript": "^7.18.6",
+    "@babel/runtime": "^7.19.4",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@types/hast": "^2.3.4",
+    "@types/lodash-es": "^4.17.6",
+    "@types/mocha": "^10.0.1",
+    "@types/unist": "^2.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "caml-spec": "^0.0.1",
+    "del-cli": "^3.0.1",
+    "eslint": "^8.27.0",
+    "lodash-es": "^4.17.21",
+    "rehype-parse": "^8.0.4",
+    "rehype-remark": "^9.1.2",
+    "rehype-stringify": "^9.0.3",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^10.1.0",
+    "remark-stringify": "^9.0.1",
+    "rollup": "^2.47.0",
+    "rollup-plugin-ts": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "typescript": "4.7.4"
+  },
+  "keywords": [
+    "attribute",
+    "attributes",
+    "colon",
+    "markdown",
+    "markup",
+    "remark",
+    "remark-plugin",
+    "micromark",
+    "micromark-plugin",
+    "micromark-extension",
+    "properties",
+    "property",
+    "wikiattr",
+    "wikiattrs",
+    "wikibonsai",
+    "wikilink",
+    "wikilinks",
+    "wikiref",
+    "wikirefs",
+    "caml",
+    "yaml"
+  ]
+}
