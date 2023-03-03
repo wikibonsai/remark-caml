@@ -8,4 +8,3 @@ export { htmlCaml } from './lib/html';
 // (not sure why...)
 
 export * from './util/types';
-export * from '../test/types';
