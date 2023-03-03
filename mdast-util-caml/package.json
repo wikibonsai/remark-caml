@@ -1,7 +1,7 @@
 {
   "name": "mdast-util-caml",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5-md",
   "description": "Converts a `micromark` token stream into an `mdast` syntax tree.",
   "license": "GPL-3.0",
   "author": {
