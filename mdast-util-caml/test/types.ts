@@ -1,4 +1,4 @@
-import type { TestCase } from 'micromark-extension-caml';
+import type { TestCase } from '../../micromark-extension-caml/test/types';
 import type { AttrBoxNode } from '../src/util/types';
 
 
