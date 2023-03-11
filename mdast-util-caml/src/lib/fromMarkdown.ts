@@ -47,6 +47,9 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
       // [[wikiattrs]]-related
       wiki: 'wiki',
       invalid: 'invalid',
+      // types
+      reftype: 'reftype__',
+      doctype: 'doctype__',
     } as OptCssNames,
   };
   const fullOpts: ReqOpts = merge(defaults, opts);
@@ -236,11 +239,24 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
                       data: {
                         hName: 'a',
                         hProperties: {
-                          className: [
-                            fullOpts.cssNames.attr,
-                            fullOpts.cssNames.wiki,
-                            keyTxt ? keyTxt.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') : 'attrtype-error',
-                          ],
+                          className: (wikiItem.doctype.length > 0)
+                          // with doctype
+                            ? [
+                              fullOpts.cssNames.attr,
+                              fullOpts.cssNames.wiki,
+                              keyTxt
+                                ? fullOpts.cssNames.reftype + keyTxt.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
+                                : fullOpts.cssNames.reftype + 'attrtype-error',
+                              fullOpts.cssNames.doctype + wikiItem.doctype.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                            ]
+                            // without doctype
+                            : [
+                              fullOpts.cssNames.attr,
+                              fullOpts.cssNames.wiki,
+                              keyTxt
+                                ? fullOpts.cssNames.reftype + keyTxt.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
+                                : fullOpts.cssNames.reftype + 'attrtype-error',
+                            ],
                           href: wikiItem.baseUrl + wikiItem.htmlHref,
                           dataHref: wikiItem.baseUrl + wikiItem.htmlHref,
                         },

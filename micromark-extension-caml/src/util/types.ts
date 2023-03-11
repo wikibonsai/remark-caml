@@ -7,6 +7,9 @@ export interface OptCssNames {
   // [[wikiattrs]]-related
   invalid: string;
   wiki: string;
+  // types
+  reftype: string;
+  doctype: string;
 }
 
 export interface OptAttr {

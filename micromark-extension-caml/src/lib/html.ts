@@ -33,6 +33,9 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
       // [[wikiattrs]]-related
       wiki: 'wiki',
       invalid: 'invalid',
+      // types
+      reftype: 'reftype__',
+      doctype: 'doctype__',
     },
   };
   const fullOpts: ReqHtmlOpts = <ReqHtmlOpts> merge(defaults, opts);
@@ -139,8 +142,10 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
             // valid
             } else {
               cssClassArray.push(fullOpts.cssNames.wiki);
-              cssClassArray.push(key.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''));
-              if (wikiItem.doctype) { cssClassArray.push(wikiItem.doctype.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')); }
+              cssClassArray.push(fullOpts.cssNames.reftype + key.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''));
+              if (wikiItem.doctype.length > 0) {
+                cssClassArray.push(fullOpts.cssNames.doctype + wikiItem.doctype.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''));
+              }
               const css: string = cssClassArray.join(' ');
               this.tag(`<a class="${css}" href="${wikiItem.baseUrl + htmlHref}" data-href="${wikiItem.baseUrl + htmlHref}">`);
               this.raw(htmlText);
