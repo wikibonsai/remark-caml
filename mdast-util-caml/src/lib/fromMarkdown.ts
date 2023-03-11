@@ -1,6 +1,8 @@
 import { merge } from 'lodash-es';
 
 import type { Token } from 'micromark-util-types';
+import { CompileContext } from 'mdast-util-from-markdown';
+import type { Node } from 'mdast-util-from-markdown/lib';
 
 import { resolve } from 'caml-mkdn';
 
@@ -66,7 +68,7 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
     },
   };
 
-  function enterAttrBox (this: any, token: Token) {
+  function enterAttrBox (this: CompileContext, token: Token) {
     // is accessible via 'this.stack' (see below)
     this.enter(
       {
@@ -75,30 +77,30 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
         data: {
           items: {} as AttrData,
         }
-      } as AttrBoxNode,
+      } as AttrBoxNode as unknown as Node,
       token,
     );
     // current key
-    const curKey = this.getData('curKey');
-    if (!curKey) this.setData('curKey', '');
+    const curKey: string | undefined = this.getData('curKey');
+    if (curKey === undefined) { this.setData('curKey', ''); }
   }
 
-  function exitAttrKey (this: any, token: Token) {
+  function exitAttrKey (this: CompileContext, token: Token) {
     const key: string = this.sliceSerialize(token).trim();
-    const current: AttrBoxNode = top(this.stack);
+    const current: AttrBoxNode = top(this.stack as Node[] as unknown as Set<AttrBoxNode>);
     if (current.data && current.data.items && !Object.keys(current.data.items).includes(key)) {
       current.data.items[key] = [] as AttrDataPrimitive[];
     }
     this.setData('curKey', key);
   }
 
-  function exitAttrVal (this: any, token: Token) {
+  function exitAttrVal (this: CompileContext, token: Token) {
     const stringValue: string = this.sliceSerialize(token);
     const item: AttrDataPrimitive = resolve(stringValue);
-    const current: AttrBoxNode = top(this.stack);
-    const curKey: string = this.getData('curKey');
-    if (current.data && current.data.items && !current.data.items[curKey].push(item)) {
-      current.data.items[curKey].push(item);
+    const current: AttrBoxNode = top(this.stack as Node[] as unknown as Set<AttrBoxNode>);
+    const curKey: string | undefined = this.getData('curKey');
+    if (current.data && current.data.items) {
+      if (curKey !== undefined) { current.data.items[curKey].push(item); }
     }
   }
 
@@ -117,8 +119,8 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
 
   // by the time 'exitAttrs()' is run, attributes should already have been
   // grouped in the front of the token stream (due to the 'camlResolve()')
-  function exitAttrBox (this: any, token: Token) {
-    const attrbox: AttrBoxNode = this.exit(token);
+  function exitAttrBox (this: CompileContext, token: Token) {
+    const attrbox: AttrBoxNode = this.exit(token) as Node as unknown as AttrBoxNode;
     // if we have attr items, process them
     if (Object.values(attrbox.data.items).length > 0) {
       // css
@@ -156,7 +158,7 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
       for (const [key, items] of Object.entries(attrbox.data.items)) {
         // key / key
         const keyTxt: string | undefined = key ? key.trim() : undefined;
-        (attrbox.children[1].children as unknown as (AttrKeyNode | AttrValNode)[]).push({
+        (attrbox.children[1] as AttrBoxListNode).children.push({
           type: 'attr-key',
           children: [{
             type: 'text',
@@ -169,7 +171,7 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
           // primitive
           if (item.type !== 'wiki') {
             const camlItem: AttrDataPrimitive = <AttrDataPrimitive> item;
-            (attrbox.children[1].children as unknown as (AttrKeyNode | AttrValNode)[]).push({
+            (attrbox.children[1] as AttrBoxListNode).children.push({
               type: 'attr-val',
               children: [
                 {
@@ -197,15 +199,15 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
             const wikiItem: WikiAttrData = item as unknown as WikiAttrData;
             // only add item if valid
             if (wikiItem.htmlHref) {
-              attrbox.children[1].children.push({
+              (attrbox.children[1] as AttrBoxListNode).children.push({
                 type: 'attr-val',
                 children: [],
                 data: { hName: 'dd' },
-              });
+              } as AttrValNode);
               const wikiItem: WikiAttrData = <WikiAttrData> item;
               // invalid
               if (!wikiItem.htmlHref) {
-                (attrbox.children[1].children as unknown as (AttrKeyNode | AttrValNode)[]).push({
+                (attrbox.children[1] as AttrBoxListNode).children.push({
                   type: 'attr-val',
                   children: [
                     {
@@ -227,7 +229,7 @@ export function fromMarkdownCaml(this: any, opts?: Partial<CamlOptions>) {
 
               // valid
               } else {
-                (attrbox.children[1].children as unknown as (AttrKeyNode | AttrValNode)[]).push({
+                (attrbox.children[1] as AttrBoxListNode).children.push({
                   type: 'attr-val',
                   children: [
                     {

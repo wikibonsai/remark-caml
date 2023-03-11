@@ -1,4 +1,5 @@
 import { merge } from 'lodash-es';
+import type { CamlValData } from 'caml-mkdn';
 import * as Uni from 'unist';
 import type {
   ConstructName,
@@ -6,17 +7,14 @@ import type {
   Handle,
   SafeOptions
 } from 'mdast-util-to-markdown';
-import { safe } from 'mdast-util-to-markdown/lib/util/safe.js';
-
-import type { CamlValData } from 'caml-mkdn';
-
+import { safe } from 'mdast-util-to-markdown/lib/util/safe';
 import type {
   CamlOptions,
   OptToMarkdown,
 } from 'micromark-extension-caml';
+import { WikiAttrData } from 'micromark-extension-caml';
 
 import type { AttrBoxNode } from '../util/types';
-import { WikiAttrData } from 'micromark-extension-caml';
 
 
 // required options
@@ -39,7 +37,7 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
       } as OptToMarkdown,
     },
   };
-  const fullOpts: ReqOpts = <ReqOpts> merge(defaults, opts);
+  const fullOpts: ReqOpts = merge(defaults, opts);
 
   return {
     // TODO: I don't fully understand what this does, but I did my

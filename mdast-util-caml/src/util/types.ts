@@ -2,6 +2,17 @@ import * as Uni from 'unist';
 import type { AttrData, AttrDataPrimitive } from 'micromark-extension-caml';
 
 
+// Add custom data tracked to turn markdown into a tree.
+declare module 'mdast-util-from-markdown' {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+  interface CompileData {
+    /**
+     * track the current attribute key
+     */
+    curKey?: string;
+  }
+}
+
 // node types
 
 // node data note:

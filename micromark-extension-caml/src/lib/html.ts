@@ -1,9 +1,9 @@
 import { merge } from 'lodash-es';
-
-import { Token } from 'micromark/lib/create-tokenizer';
-
+import { ok as assert } from 'uvu/assert';
 import type { CamlValData } from 'caml-mkdn';
 import { resolve } from 'caml-mkdn';
+import { CompileContext } from 'micromark-util-types';
+import { Token } from 'micromark/lib/create-tokenizer';
 
 import type {
   AttrData,
@@ -19,7 +19,7 @@ const openMarker: string = '[[';
 // should match 'wikirefs.CONST.MARKER.CLOSE'
 const closeMarker: string = ']]';
 
-export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
+export function htmlCaml(opts: Partial<CamlOptions> = {}) {
   // opts
   const defaults: ReqHtmlOpts = {
     attrs: {
@@ -52,19 +52,19 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
     },
   };
 
-  function enterAttrBox (this: any): void {
+  function enterAttrBox (this: CompileContext): void {
     // attrs
-    let stack = this.getData('attrStack');
+    let stack = this.getData('attrStack') as unknown as AttrData[];
     if (!stack) this.setData('attrStack', (stack = []));
     stack.push({} as AttrData);
     // current key
-    const curKey: string = this.getData('curKey');
+    const curKey: string = this.getData('curKey') as unknown as string;
     if (!curKey) this.setData('curKey', '');
   }
 
-  function exitAttrKey (this: any, token: Token): void {
+  function exitAttrKey (this: CompileContext, token: Token): void {
     const key: string = this.sliceSerialize(token);
-    const stack: AttrData[] = this.getData('attrStack');
+    const stack: AttrData[] = this.getData('attrStack') as unknown as AttrData[];
     const current: AttrData = top(stack);
     if (!Object.keys(current).includes(key)) {
       current[key] = [] as AttrDataPrimitive[];
@@ -72,12 +72,12 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
     this.setData('curKey', key);
   }
 
-  function exitAttrVal (this: any, token: Token): void {
+  function exitAttrVal (this: CompileContext, token: Token): void {
     const value: string = this.sliceSerialize(token);
-    const stack: AttrData[] = this.getData('attrStack');
+    const stack: AttrData[] = this.getData('attrStack') as unknown as AttrData[];
     const current: AttrData = top(stack);
     const resolvedVal: CamlValData = resolve(value);
-    const curKey: string = this.getData('curKey');
+    const curKey: string = this.getData('curKey') as unknown as string;
     current[curKey].push(resolvedVal);
   }
 
@@ -96,8 +96,9 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
 
   // by the time 'exitAttrs()' is run, attributes should already have been
   // grouped in the front of the token stream (due to the 'camlResolve()')
-  function exitAttrBox (this: any): void {
-    const attrs: AttrData = this.getData('attrStack').pop();
+  function exitAttrBox (this: CompileContext): void {
+    const attrs: AttrData | undefined = (this.getData('attrStack') as unknown as AttrData[]).pop();
+    assert((attrs !== undefined), 'in exitAttrBox(): problem with \'attrs\'');
     if ((attrs !== undefined) && Object.keys(attrs).length !== 0) {
       // open
       this.tag(`<aside class="${fullOpts.cssNames.attrbox}">`);
@@ -117,18 +118,16 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
         this.tag('</dt>');
         // values
         for (const val of values) {
+          this.tag('<dd>');
           // attr caml primitive
           if (!val.type.includes('wiki')) {
             const item: AttrDataPrimitive = <AttrDataPrimitive> val;
-            this.tag('<dd>');
             const keySlug: string = key.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
             this.tag(`<span class="${fullOpts.cssNames.attr} ${item.type} ${keySlug}">`);
             this.raw(item.string);
             this.tag('</span>');
-            this.tag('</dd>');
           // attr [[wikilink]]
           } else {
-            this.tag('<dd>');
             const wikiItem: WikiAttrData = val as WikiAttrData;
             // css
             const cssClassArray: string[] = [];
@@ -137,7 +136,7 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
             const htmlText: string = wikiItem.htmlText ? wikiItem.htmlText : wikiItem.filename;
             // invalid
             if (htmlHref === '') {
-              this.tag(`<a class="${fullOpts.cssNames.invalid}">`);
+              this.tag(`<a class="${fullOpts.cssNames.attr} ${fullOpts.cssNames.wiki} ${fullOpts.cssNames.invalid}">`);
               this.raw(openMarker + wikiItem.filename + closeMarker);
             // valid
             } else {
@@ -151,8 +150,8 @@ export function htmlCaml(this: any, opts: Partial<CamlOptions> = {}) {
               this.raw(htmlText);
             }
             this.tag('</a>');
-            this.tag('</dd>');
           }
+          this.tag('</dd>');
         }
       }
       // close

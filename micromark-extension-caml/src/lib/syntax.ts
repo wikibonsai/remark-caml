@@ -72,7 +72,8 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
       // convert wikiattr token types to caml-friendly token types
       if ((events[index][1].type.indexOf('caml') === 0)
       || (events[index][1].type.indexOf('wiki') === 0)
-      || (events[index][1].type.indexOf('attr') === 0)) {
+      || (events[index][1].type.indexOf('attr') === 0)
+      ) {
         switch (events[index][1].type) {
         // caml primitives
         case CamlToken.camlAttr:
