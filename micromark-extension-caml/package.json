@@ -30,7 +30,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "caml-mkdn": "^0.0.1",
+    "caml-mkdn": "^0.0.2",
     "lodash-es": "^4.17.21",
     "micromark-factory-space": "^1.0.0",
     "micromark-util-character": "^1.1.0",

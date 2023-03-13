@@ -1539,10 +1539,10 @@ camelcase@^6.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caml-mkdn@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.1.tgz#c192b525bf13a3ed6c41854c1404d151a447a960"
-  integrity sha512-5IouiXqhKtCu5HzcIqzdMhLsxK3uSNnDs/+8bj95JOBnlw+u5xkm1xgxiHzpaorIxvxRlWyOYj/pQf/7j3TtfA==
+caml-mkdn@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.2.tgz#4bdd7d4c2625e8d62fe05ff200ed3a8f9aa45965"
+  integrity sha512-xe7ogLRSj209b1rP5bTsk4pLxgDQAkl/uqugo/48RVVjKN7aNlhVpXM60fCoaIsud29tbiJvI3GT6pC02wqRFA==
 
 caml-spec@^0.0.1:
   version "0.0.1"
