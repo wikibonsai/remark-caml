@@ -55,7 +55,7 @@
     "del-cli": "^3.0.1",
     "eslint": "^8.27.0",
     "micromark": "^3.1.0",
-    "micromark-extension-wikirefs": "^0.0.1",
+    "micromark-extension-wikirefs": "^0.0.3-mm",
     "mocha": "^10.1.0",
     "rollup": "^2.47.0",
     "rollup-plugin-ts": "^3.0.2",

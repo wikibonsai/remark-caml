@@ -5,8 +5,6 @@ import { micromark } from 'micromark';
 // import type { CamlOptions } from '../../src';
 import type { WikiRefsOptions } from 'micromark-extension-wikirefs';
 
-import { wikiRefCases } from 'wikirefs-spec';
-
 import { htmlWikiRefs, syntaxWikiRefs } from 'micromark-extension-wikirefs';
 
 import { htmlCaml, syntaxCaml } from '../src';
@@ -56,10 +54,6 @@ attr5::string1
     );
     const expdHtml: string = '<aside class="attrbox"><span class="attrbox-title">Attributes</span><dl><dt>attr1</dt><dd><a class="attr wiki attr1 reftype__attr1" href="/wikiattr1" data-href="/wikiattr1">wikiattr1</a></dd><dt>attr2</dt><dd><a class="attr wiki attr2" href="/wikiattr2" data-href="/wikiattr2">wikiattr2</a></dd><dt>attr3</dt><dd><a class="attr wiki attr3" href="/wikiattr3" data-href="/wikiattr3">wikiattr3</a></dd><dd><a class="attr wiki attr3" href="/wikiattr4" data-href="/wikiattr4">wikiattr4</a></dd><dt>attr4</dt><dd><a class="attr wiki attr4" href="/wikiattr5" data-href="/wikiattr5">wikiattr5</a></dd><dd><a class="attr wiki attr4" href="/wikiattr6" data-href="/wikiattr6">wikiattr6</a></dd><dt>attr5</dt><dd><span class="attr string attr5">string1</span></dd><dt>attr6</dt><dd><span class="attr string attr6">string2</span></dd><dt>attr7</dt><dd><span class="attr string attr7">string3</span></dd><dd><span class="attr string attr7">string4</span></dd><dt>attr8</dt><dd><span class="attr string attr8">string5</span></dd><dd><span class="attr string attr8">string6</span></dd></dl></aside>\n\n\n\n\n\n\n';
     assert.strictEqual(actlHtml, expdHtml);
-  });
-
-  describe('', () => {
-    wikiRefCases;
   });
 
   it('only \'wikirefs\' installed', () => {
