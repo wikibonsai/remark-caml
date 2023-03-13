@@ -51,11 +51,11 @@
 		"moduleResolution": "node",                  /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
 		"baseUrl": "./",                             /* Base directory to resolve non-absolute module names. */
 		"paths": {                                   /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
-			"mdast-util-wikirefs" : [
-				"node_modules/mdast-util-wikirefs"
+			"mdast-util-caml" : [
+				"node_modules/mdast-util-caml"
 			],
-			"micromark-extension-wikirefs": [
-				"node_modules/micromark-extension-wikirefs"
+			"micromark-extension-caml": [
+				"node_modules/micromark-extension-caml"
 			]
 		},
 		// "rootDirs": [],                              /* List of root folders whose combined content represents the structure of the project at runtime. */
