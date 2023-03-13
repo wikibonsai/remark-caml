@@ -1318,11 +1318,6 @@
     "@typescript-eslint/types" "5.54.0"
     eslint-visitor-keys "^3.3.0"
 
-"@ungap/promise-all-settled@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
-  integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
-
 "@wessberg/stringutil@^1.0.19":
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/@wessberg/stringutil/-/stringutil-1.0.19.tgz#baadcb6f4471fe2d46462a7d7a8294e4b45b29ad"
@@ -1534,10 +1529,10 @@ camelcase@^6.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caml-mkdn@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.1.tgz#c192b525bf13a3ed6c41854c1404d151a447a960"
-  integrity sha512-5IouiXqhKtCu5HzcIqzdMhLsxK3uSNnDs/+8bj95JOBnlw+u5xkm1xgxiHzpaorIxvxRlWyOYj/pQf/7j3TtfA==
+caml-mkdn@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.2.tgz#4bdd7d4c2625e8d62fe05ff200ed3a8f9aa45965"
+  integrity sha512-xe7ogLRSj209b1rP5bTsk4pLxgDQAkl/uqugo/48RVVjKN7aNlhVpXM60fCoaIsud29tbiJvI3GT6pC02wqRFA==
 
 caml-spec@^0.0.1:
   version "0.0.1"
@@ -2651,18 +2646,17 @@ map-obj@^4.0.0:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
   integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
 
-mdast-util-caml@^0.0.5-md:
-  version "0.0.5-md"
-  resolved "https://registry.yarnpkg.com/mdast-util-caml/-/mdast-util-caml-0.0.5-md.tgz#a5bfcd4dc3f8d0fcd46a52f8813ef61008e7718f"
-  integrity sha512-NvsKMlGpQrI3lhpA/9NZiqtcKWlo9tO5E+3W9sn3xs/NKxpPBX199HA00KQbOvlnt1hAXSQh6vAePkT5J4L0rQ==
+mdast-util-caml@^0.0.7-md:
+  version "0.0.7-md"
+  resolved "https://registry.yarnpkg.com/mdast-util-caml/-/mdast-util-caml-0.0.7-md.tgz#3418adf5f3cda8d354006900106e26424bbc9972"
+  integrity sha512-5j4bVKSjoJA/ae28sRu6nJAAHh9YwHadCYKhWFD2yADyUVC2WJ8ZLKXUiJs7UOH71C2465up0MDHlsnvWIxlOQ==
   dependencies:
-    caml-mkdn "^0.0.1"
+    caml-mkdn "^0.0.2"
     lodash-es "^4.17.21"
     mdast-util-from-markdown "^1.3.0"
     mdast-util-to-markdown "^1.5.0"
-    mdast-util-wikirefs "^0.0.1"
-    micromark-extension-caml "^0.0.2-mm"
-    micromark-extension-wikirefs "^0.0.1"
+    micromark-extension-caml "^0.0.5-mm"
+    micromark-extension-wikirefs "^0.0.3-mm"
     micromark-util-types "^1.0.2"
 
 mdast-util-definitions@^5.0.0:
@@ -2763,15 +2757,6 @@ mdast-util-to-string@^3.0.0, mdast-util-to-string@^3.1.0:
   dependencies:
     "@types/mdast" "^3.0.0"
 
-mdast-util-wikirefs@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/mdast-util-wikirefs/-/mdast-util-wikirefs-0.0.1.tgz#f2a4cfac270b7bf7152faf4e1627523b4dc5067b"
-  integrity sha512-H8AnI9VT2a8mwVRiS2sfKskOLb7mAHIRfy1TXNNs298HvUy4eAzljZwIlbh3sLSRYpXa+Bp3GYse1Gh1bRKffQ==
-  dependencies:
-    lodash-es "^4.17.21"
-    micromark-extension-wikirefs "^0.0.1"
-    wikirefs "^0.0.1"
-
 meow@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/meow/-/meow-6.1.1.tgz#1ad64c4b76b2a24dfb2f635fddcadf320d251467"
@@ -2816,12 +2801,12 @@ micromark-core-commonmark@^1.0.1:
     micromark-util-types "^1.0.1"
     uvu "^0.5.0"
 
-micromark-extension-caml@^0.0.2-mm:
-  version "0.0.2-mm"
-  resolved "https://registry.yarnpkg.com/micromark-extension-caml/-/micromark-extension-caml-0.0.2-mm.tgz#1142f15fb656fa6a60c92da06f8d0f660bba587f"
-  integrity sha512-y5jDt/lk2DrSfR9Z6mmAerXLuPPSD6ijL7BSfaDBYuB/G+tKfy71ho93orom4RemtBcit5cDxNiuflCc85qxJA==
+micromark-extension-caml@^0.0.5-mm:
+  version "0.0.5-mm"
+  resolved "https://registry.yarnpkg.com/micromark-extension-caml/-/micromark-extension-caml-0.0.5-mm.tgz#5754c2286d5ab5a46ae789240e48646e85c885bf"
+  integrity sha512-UgKU/iLpbdJkF59iJ4u5uQ1kEPJ6Q51Yzg6ADHFoEM1Q38zS+TOr/b4QU3oABb7jas9Tfswb3BQRC5ibfDS69Q==
   dependencies:
-    caml-mkdn "^0.0.1"
+    caml-mkdn "^0.0.2"
     lodash-es "^4.17.21"
     micromark-factory-space "^1.0.0"
     micromark-util-character "^1.1.0"
@@ -2830,10 +2815,10 @@ micromark-extension-caml@^0.0.2-mm:
     micromark-util-types "^1.0.2"
     uvu "^0.5.6"
 
-micromark-extension-wikirefs@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/micromark-extension-wikirefs/-/micromark-extension-wikirefs-0.0.1.tgz#afea47e9c84801df52304feb77c1c46de1788ee8"
-  integrity sha512-1PtmHgTfvfCRvx4trYLL1tIH/XzQGj1NKJhSAyyG6malst3akDX7mBczkmQXyqujmkgD3F7rBRH670s5AolVeQ==
+micromark-extension-wikirefs@^0.0.3-mm:
+  version "0.0.3-mm"
+  resolved "https://registry.yarnpkg.com/micromark-extension-wikirefs/-/micromark-extension-wikirefs-0.0.3-mm.tgz#6061252a2c906a5809e83a3855bee027c0114751"
+  integrity sha512-Vfint2QgMRjus2Jpk1v+pecicpO/bffJMF/LhjO0z9lil62SuoWkCv2bT/hKFSBbMDJ4m6i6Q0fn/1l+eCjpAw==
   dependencies:
     lodash-es "^4.17.21"
     micromark-factory-space "^1.0.0"
@@ -2843,7 +2828,7 @@ micromark-extension-wikirefs@^0.0.1:
     micromark-util-symbol "^1.0.1"
     micromark-util-types "^1.0.2"
     uvu "^0.5.6"
-    wikirefs "^0.0.1"
+    wikirefs "^0.0.2"
 
 micromark-factory-destination@^1.0.0:
   version "1.0.0"
@@ -3062,12 +3047,11 @@ minimist-options@^4.0.2:
     is-plain-obj "^1.1.0"
     kind-of "^6.0.3"
 
-mocha@10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-10.0.0.tgz#205447d8993ec755335c4b13deba3d3a13c4def9"
-  integrity sha512-0Wl+elVUD43Y0BqPZBzZt8Tnkw9CMUdNYnUsTfOM1vuhJVZL+kiesFYsqwBkEEuEixaiPe5ZQdqDgX2jddhmoA==
+mocha@^10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-10.2.0.tgz#1fd4a7c32ba5ac372e03a17eef435bd00e5c68b8"
+  integrity sha512-IDY7fl/BecMwFHzoqF2sg/SHHANeBoMMXFlS9r0OXKDssYE1M5O43wUY/9BVPeIvfH2zmEbBfseqN9gBQZzXkg==
   dependencies:
-    "@ungap/promise-all-settled" "1.1.2"
     ansi-colors "4.1.1"
     browser-stdout "1.3.1"
     chokidar "3.5.3"
@@ -3951,10 +3935,10 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-wikirefs@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.1.tgz#15914b9ecc986c17ed0c6ac0ce71c18359b207d8"
-  integrity sha512-O46dSbuZQdDi3SE9pB88UhwqtGAvbV0+j7zD95158xul9YceCrEX/dWsidTzfoW0oJkI7zFCkCOWE3YzUHGagQ==
+wikirefs@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/wikirefs/-/wikirefs-0.0.2.tgz#eb8bdb3506f6fe75f683198b9343e0228a5ed716"
+  integrity sha512-G57eZB6VcYmm8umCOYIkmfzX497EEbhtlPwP/qLI+vYYIp4POIlkA67VE+PrYMsVVf5YxQ+QukElAK9hE5VROQ==
   dependencies:
     escape-mkdn "^0.0.3"
 
