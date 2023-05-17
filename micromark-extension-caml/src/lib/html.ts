@@ -119,8 +119,8 @@ export function htmlCaml(opts: Partial<CamlOptions> = {}) {
         // values
         for (const val of values) {
           this.tag('<dd>');
-          // attr caml primitive
-          if (!val.type.includes('wiki')) {
+          const isCamlPrimitive: boolean = !val.type.includes('wiki');
+          if (isCamlPrimitive) {
             const item: AttrDataPrimitive = <AttrDataPrimitive> val;
             const keySlug: string = key.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
             this.tag(`<span class="${fullOpts.cssNames.attr} ${item.type} ${keySlug}">`);
