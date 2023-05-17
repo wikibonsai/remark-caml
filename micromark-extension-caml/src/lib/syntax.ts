@@ -47,9 +47,9 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
     if (code !== null) {
       flow[code] = {
         name: 'caml',
-        tokenize: tokenizeCaml,
+        tokenize: tokenizeCaml as Tokenizer,
         concrete: true,
-        resolveAll: resolveAttrs,
+        resolveAll: resolveAttrs as Resolver,
       };
     }
   }
