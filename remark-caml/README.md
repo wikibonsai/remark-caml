@@ -1,6 +1,6 @@
 # `remark-caml`
 
-![[A WikiBonsai Project](https://github.com/wikibonsai/wikibonsai)](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)
+[![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
 [![NPM package](https://img.shields.io/npm/v/remark-caml)](https://npmjs.org/package/remark-caml)
 
 Plugin for [`remark`](https://github.com/remarkjs/remark) to support [CAML](https://github.com/wikibonsai/caml) attributes.  Relies on [`micromark-extension-caml`](https://github.com/wikibonsai/remark-caml/tree/master/micromark-extension-caml) for tokenization and [`mdast-util-caml`](https://github.com/wikibonsai/remark-caml/tree/master/mdast-util-caml) for converting markdown to/from abstract syntax trees.

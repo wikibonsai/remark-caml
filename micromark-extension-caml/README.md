@@ -1,6 +1,6 @@
 # `micromark-extension-caml`
 
-![[A WikiBonsai Project](https://github.com/wikibonsai/wikibonsai)](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)
+[![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
 [![NPM package](https://img.shields.io/npm/v/micromark-extension-caml)](https://npmjs.org/package/micromark-extension-caml)
 
 A **[`micromark`](https://github.com/micromark/micromark)** syntax extension for [CAML](https://github.com/wikibonsai/caml) attributes, providing the low-level modules for integrating with the micromark tokenizer and the micromark HTML compiler.
