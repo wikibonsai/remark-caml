@@ -2646,10 +2646,10 @@ map-obj@^4.0.0:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
   integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
 
-mdast-util-caml@^0.0.7-md:
-  version "0.0.7-md"
-  resolved "https://registry.yarnpkg.com/mdast-util-caml/-/mdast-util-caml-0.0.7-md.tgz#3418adf5f3cda8d354006900106e26424bbc9972"
-  integrity sha512-5j4bVKSjoJA/ae28sRu6nJAAHh9YwHadCYKhWFD2yADyUVC2WJ8ZLKXUiJs7UOH71C2465up0MDHlsnvWIxlOQ==
+mdast-util-caml@^0.0.9-md:
+  version "0.0.9-md"
+  resolved "https://registry.yarnpkg.com/mdast-util-caml/-/mdast-util-caml-0.0.9-md.tgz#6a59eed9cc0f24238189a01250c7f92d3b66e369"
+  integrity sha512-O6QCON6WW9GkU+/p0NFpe8MtAWwT2b88ad9oPw/GEBNukxLipSppI+pYmTZbiCEVzsJWJaNOmXK7uBT8xzpVIQ==
   dependencies:
     caml-mkdn "^0.0.2"
     lodash-es "^4.17.21"
@@ -2750,10 +2750,17 @@ mdast-util-to-string@^2.0.0:
   resolved "https://registry.yarnpkg.com/mdast-util-to-string/-/mdast-util-to-string-2.0.0.tgz#b8cfe6a713e1091cb5b728fc48885a4767f8b97b"
   integrity sha512-AW4DRS3QbBayY/jJmD8437V1Gombjf8RSOUCMFBuo5iHi58AGEgVCKQ+ezHkZZDpAQS75hcBMpLqjpJTjtUL7w==
 
-mdast-util-to-string@^3.0.0, mdast-util-to-string@^3.1.0:
+mdast-util-to-string@^3.0.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/mdast-util-to-string/-/mdast-util-to-string-3.1.1.tgz#db859050d79d48cf9896d294de06f3ede7474d16"
   integrity sha512-tGvhT94e+cVnQt8JWE9/b3cUQZWS732TJxXHktvP+BYo62PpYD53Ls/6cC60rW21dW+txxiM4zMdc6abASvZKA==
+  dependencies:
+    "@types/mdast" "^3.0.0"
+
+mdast-util-to-string@^3.1.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/mdast-util-to-string/-/mdast-util-to-string-3.2.0.tgz#66f7bb6324756741c5f47a53557f0cbf16b6f789"
+  integrity sha512-V4Zn/ncyN1QNSqSBxTrMOLpjr+IKdHl2v3KVLoWmDPscP4r9GcCi71gjgvUV1SFSKh92AjAG4peFuBl2/YgCJg==
   dependencies:
     "@types/mdast" "^3.0.0"
 
