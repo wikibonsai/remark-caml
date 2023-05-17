@@ -7,7 +7,7 @@ import type {
   Handle,
   SafeOptions
 } from 'mdast-util-to-markdown';
-import { safe } from 'mdast-util-to-markdown/lib/util/safe';
+import { safe } from 'mdast-util-to-markdown/lib/util/safe.js';
 import type {
   CamlOptions,
   OptToMarkdown,
