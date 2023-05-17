@@ -1,4 +1,4 @@
-// // todo: add test to illustrate that metadata will be called regardless if 'resolveHtmlhref'/'resolveHtmlText' found anything.
+// // todo: add test to illustrate that metadata will be called regardless if 'resolveHtmlHref'/'resolveHtmlText' found anything.
 // import * as assert from 'assert';
 // var sinon = require("sinon");
 
