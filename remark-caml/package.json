@@ -1,7 +1,7 @@
 {
   "name": "remark-caml",
   "private": false,
-  "version": "0.0.3-rm",
+  "version": "0.0.4-rm",
   "description": "A remark plugin for caml (semantic) attributes in markdown.",
   "license": "GPL-3.0",
   "author": {
@@ -31,7 +31,7 @@
     "dev:fix-links": "yarn link micromark-extension-caml mdast-util-caml"
   },
   "dependencies": {
-    "mdast-util-caml": "^0.0.7-md",
+    "mdast-util-caml": "^0.0.8-md",
     "micromark-extension-caml": "^0.0.5-mm"
   },
   "devDependencies": {
