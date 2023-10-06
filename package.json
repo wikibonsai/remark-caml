@@ -5,11 +5,11 @@
     "build:micromark-extension-caml": "cd micromark-extension-caml && yarn build",
     "build:remark-caml": "cd remark-caml && yarn build",
     "build:mdast-util-caml": "cd mdast-util-caml && yarn build",
-    "lint": "yarn lint:micromark-extension-caml && yarn lint:mdast-util-caml && yarn lint:remark-caml",
+    "lint": "yarn lint:micromark-extension-caml; yarn lint:mdast-util-caml; yarn lint:remark-caml",
     "lint:micromark-extension-caml": "cd micromark-extension-caml && yarn lint",
     "lint:remark-caml": "cd remark-caml && yarn lint",
     "lint:mdast-util-caml": "cd mdast-util-caml && yarn lint",
-    "test": "yarn test:micromark-extension-caml && yarn test:mdast-util-caml && yarn test:remark-caml",
+    "test": "yarn test:micromark-extension-caml; yarn test:mdast-util-caml; yarn test:remark-caml",
     "test:micromark-extension-caml": "cd micromark-extension-caml && yarn test",
     "test:remark-caml": "cd remark-caml && yarn test",
     "test:mdast-util-caml": "cd mdast-util-caml && yarn test"
