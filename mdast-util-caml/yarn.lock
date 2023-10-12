@@ -2531,10 +2531,10 @@ micromark-core-commonmark@^1.0.1:
     micromark-util-types "^1.0.1"
     uvu "^0.5.0"
 
-micromark-extension-caml@^0.0.5-mm:
-  version "0.0.5-mm"
-  resolved "https://registry.yarnpkg.com/micromark-extension-caml/-/micromark-extension-caml-0.0.5-mm.tgz#5754c2286d5ab5a46ae789240e48646e85c885bf"
-  integrity sha512-UgKU/iLpbdJkF59iJ4u5uQ1kEPJ6Q51Yzg6ADHFoEM1Q38zS+TOr/b4QU3oABb7jas9Tfswb3BQRC5ibfDS69Q==
+micromark-extension-caml@^0.0.6-mm:
+  version "0.0.6-mm"
+  resolved "https://registry.yarnpkg.com/micromark-extension-caml/-/micromark-extension-caml-0.0.6-mm.tgz#e22d0a39bb52563b59d810a9124e14734a0826a4"
+  integrity sha512-gNRClwhBRp8dXhOZX5tTaZi9TZ+JFObtyZYQ97gA0bxyxbgTA3nG0NRYzNM7qDnYJB+SQ7YyoLCQnjaJTA/MVw==
   dependencies:
     caml-mkdn "^0.0.2"
     lodash-es "^4.17.21"
