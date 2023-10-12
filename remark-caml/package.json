@@ -31,8 +31,8 @@
     "dev:fix-links": "yarn link micromark-extension-caml mdast-util-caml"
   },
   "dependencies": {
-    "mdast-util-caml": "^0.0.9-md",
-    "micromark-extension-caml": "^0.0.5-mm"
+    "mdast-util-caml": "^0.0.10-md",
+    "micromark-extension-caml": "^0.0.6-mm"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
