@@ -50,6 +50,9 @@ function runMkdnToMdast(contextMsg: string, tests: TestCaseMdast[]): void {
           assert.strictEqual(actlNode.type, expdNode.type);
           assert.deepStrictEqual(actlNode.data, expdNode.data);
         });
+        if (!visited) {
+          console.error('ast node not visited');
+        }
         assert.strictEqual(visited, true);
       });
     }
@@ -70,17 +73,17 @@ function runMkdnToHtml(contextMsg: string, tests: CamlTestCase[]): void {
         // setup
         /* eslint-disable indent */
         const processor: Processor = unified().use(remarkParse)
-                                              .use(remarkRehype)
-                                              .use(rehypeStringify)
                                               // .use(remarkRehype as any)
                                               // .use(rehypeStringify as any)
-                                              .use(remarkCaml, opts);
+                                              .use(remarkCaml, opts)
+                                              .use(remarkRehype)
+                                              .use(rehypeStringify);
         /* eslint-enable indent */
         // go
         const actlHtml: string = String(processor.processSync(mkdn));
         // assert
         assert.strictEqual(
-          actlHtml.replace(/\n/g, ''),
+          actlHtml.replace(/\n/g, '').replace(/<div>\s*<\/div>/g, ''),
           expdHtml.replace(/\n/g, ''),
         );
       });

@@ -1,12 +1,12 @@
 import type { TestCaseMdast } from '../types';
-import { nodeKinds } from './astNode';
+import { attrboxDataNode } from './astNode-data';
 
 
 export const unprefixedListMkdnCases: TestCaseMdast[] = [
   {
     descr: 'unprefixed; list; mkdn-separated; w/out pad; w/out whitespace',
     mkdn: 'attrtype::\n- string-a\n- string-b\n- string-c\n',
-    node: nodeKinds['list'],
+    node: attrboxDataNode['list'],
     opts: {
       attrs: {
         toMarkdown: {
@@ -19,7 +19,7 @@ export const unprefixedListMkdnCases: TestCaseMdast[] = [
   {
     descr: 'unprefixed; padded; list; mkdn-separated; w/out whitespace',
     mkdn: 'attrtype :: \n- string-a\n- string-b\n- string-c\n',
-    node: nodeKinds['list'],
+    node: attrboxDataNode['list'],
     opts: {
       attrs: {
         toMarkdown: {

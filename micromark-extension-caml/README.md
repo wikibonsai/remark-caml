@@ -33,14 +33,7 @@ let serialized = micromark(':attrtype::value\n', {
 
 The serialized result will be the following.  To get an abstract syntax tree, use `mdast-util-caml` instead.
 
-```html
-<aside class="attrbox">
-<span class="attrbox-title">Attributes</span>
-    <dl>
-    <dt>attrtype</dt>
-        <dd><span class="attrd string attrtype">value</span></dd>
-</aside>
-```
+While data is extracted and stored in data tokens, no HTML is generated at the `micromark` level. To render directly to html, use [`mdast-util-caml`](https://github.com/wikibonsai/remark/caml/tree/main/mdast-util-caml).
 
 ### Options
 

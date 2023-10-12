@@ -1,12 +1,12 @@
 import type { TestCaseMdast } from '../types';
-import { nodeKinds } from './astNode';
+import { attrboxDataNode } from './astNode-data';
 
 
 export const unprefixedListCommaCases: TestCaseMdast[] = [
   {
     descr: 'unprefixed; list; comma-separated; w/out pad; w/out whitespace',
     mkdn: 'attrtype::string-a,string-b,string-c\n',
-    node: nodeKinds['list'],
+    node: attrboxDataNode['list'],
     opts: {
       attrs: {
         toMarkdown: {
@@ -19,7 +19,7 @@ export const unprefixedListCommaCases: TestCaseMdast[] = [
   {
     descr: 'unprefixed; list; comma-separated; w/ pad; w/out whitespace',
     mkdn: 'attrtype :: string-a, string-b, string-c\n',
-    node: nodeKinds['list'],
+    node: attrboxDataNode['list'],
     opts: {
       attrs: {
         toMarkdown: {

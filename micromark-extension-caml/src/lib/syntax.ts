@@ -61,137 +61,30 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
   function resolveAttrs(this: Resolver, events: Event[], context: TokenizeContext): Event[] {
     // current index
     let index: number = -1;
-    // track wikiattr events
-    const attrEnterEvents: number[] = [];
-    const attrExitEvents: number[] = [];
-    const attrEvents: number[] = [];
-    // markers, newlines, etc. are completely removed
-    const attrToss: number[] = [];
 
     while (++index < events.length) {
       // convert wikiattr token types to caml-friendly token types
-      if ((events[index][1].type.indexOf('caml') === 0)
-      || (events[index][1].type.indexOf('wiki') === 0)
-      || (events[index][1].type.indexOf('attr') === 0)
-      ) {
+      if (events[index][1].type.indexOf('caml') === 0) {
         switch (events[index][1].type) {
         // caml primitives
         case CamlToken.camlAttr:
           if (events[index][0] === 'enter') {
             events[index][1].type = 'attrBox';
-            attrEnterEvents.push(index);
           }
           if (events[index][0] === 'exit') {
             events[index][1].type = 'attrBox';
-            attrExitEvents.push(index);
           }
           break;
         case CamlToken.camlKeyTxt:
           events[index][1].type = 'attrKey';
-          attrEvents.push(index);
           break;
         case CamlToken.camlValTxt:
           events[index][1].type = 'attrVal';
-          attrEvents.push(index);
-          break;
-        // [[wikiattrs]]
-        // (this is necessary in the scenario where caml is used, but only
-        //  wikiattrs exist and no caml attr primitives exist)
-        case 'wikiAttr':
-          if (events[index][0] === 'enter') {
-            events[index][1].type = 'attrBox';
-            attrEnterEvents.push(index);
-          }
-          if (events[index][0] === 'exit') {
-            events[index][1].type = 'attrBox';
-            attrExitEvents.push(index);
-          }
-          break;
-        case 'wikiAttrTypeTxt':
-          events[index][1].type = 'wikiAttrKey';
-          attrEvents.push(index);
-          break;
-        case 'wikiAttrFileNameTxt':
-          events[index][1].type = 'wikiAttrVal';
-          attrEvents.push(index);
-          break;
-        // todo: perform type re-name below when we build the attrs section...
-        // type name-changes seem to percolate farther than just the current event,
-        // if that happens, indices should still be tracked.
-        case 'attrBox':
-          if (events[index][0] === 'enter') {
-            attrEnterEvents.push(index);
-          }
-          if (events[index][0] === 'exit') {
-            attrExitEvents.push(index);
-          }
-          break;
-        case 'attrKey':
-          attrEvents.push(index);
-          break;
-        case 'attrVal':
-          attrEvents.push(index);
-          break;
-        case 'wikiAttrKey':
-          attrEvents.push(index);
-          break;
-        case 'wikiAttrVal':
-          attrEvents.push(index);
           break;
         default: { break; }
         }
       }
     }
-
-    // make sure attrs section enter, key/val, and exit all exist //
-
-    assert(
-      !((attrEvents.length === 0)
-      &&
-      ((attrEnterEvents.length !== 0) || (attrExitEvents.length === 0))
-      ),
-      'attr key/val tokens expected',
-    );
-    assert(
-      !((attrEvents.length > 0) && (attrEnterEvents.length === 0)),
-      'camlAttr enter token expected',
-    );
-    assert(
-      !((attrEvents.length > 0) && (attrExitEvents.length === 0)),
-      'camlAttr exit token expected',
-    );
-
-    // build attrs section //
-
-    // todo?
-    // type: (string | Event | TokenizeContext)[][]
-    let attrs: any = [];
-    // enter attrs
-    attrs = push(attrs, [['enter', events[attrEnterEvents[0]][1], context]]);
-    // attr keys/vals
-    for (const attr of attrEvents) {
-      // 0: 'enter' or 'exit'
-      // 1: construct ('attrKey', 'attrVal', 'wikiAttrKey', 'wikiAttrVal')
-      // 2: 'context'
-      attrs = push(attrs, [[events[attr][0], events[attr][1], context]]);
-    }
-    // exit attrs
-    attrs = push(attrs, [['exit', events[attrExitEvents[attrExitEvents.length - 1]][1], context]]);
-
-    // remove all attr events from original events array //
-    const toss: number[] = attrToss.concat(attrEnterEvents).concat(attrEvents).concat(attrExitEvents);
-    for (let i = (events.length - 1); i >= 0; i--) {
-      if (toss.includes(i)) {
-        events.splice(i, 1);
-      }
-      // todo: 'data'...?
-      // ref: https://github.com/micromark/micromark/blob/main/packages/micromark-core-commonmark/dev/lib/label-end.js#L52
-      // token.type = UnifiedTypeToken.data;
-    }
-
-    // stick attr events to front of events array //
-
-    events.splice(0, 0, ...attrs); // 'unshift'
     return events;
   }
 

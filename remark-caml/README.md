@@ -11,7 +11,7 @@ Note that this extension only parses the input -- it is up to you to track and s
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c). Install [`remark-caml`]() on `npm`.
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c). Install [`remark-caml`](https://www.npmjs.com/package/remark-caml) on `npm`.
 
 ```
 npm install remark-caml
@@ -35,62 +35,83 @@ Running the processor on the following markdown:
 :attrtype::value
 ```
 
-Will produce the following `caml` node:
+Will produce the following `attrbox-data` node:
 
 ```json
 {
-	"type": "attrbox",
-	"data": {
-		"items": {
-			"attrtype": [{
-				"type": "string",
-				"value": "string",
-				"string": "string",
-			}, ],
-		},
-		"hName": "aside",
-		"hProperties": {
-			"className": ["attrbox"],
-		},
-	},
-	"children": [
-		{
-			"type": "attrbox-title",
-			"data": {
-				"hName": "span",
-				"hProperties": {
-					"className": ["attrbox-title"],
-				},
-			}
-		},
-		{
-			"type": "attrbox-list",
-			"children": [{
-					"type": "attr-key",
-					"data": {
-						"hName": "dt"
-					},
-					"children": [{
-						"type": "text",
-						"value": "attrtype",
-					}],
-				},
-				{
-					"type": "attr-val",
-					"data": {
-						"hName": "dd"
-					},
-					"children": [{
-						"type": "text",
-						"value": "value",
-					}],
-				},
-			],
-			"data": {
-				"hName": "dl"
-			},
-		},
-	],
+  "type": "attrbox-data",
+  "data": {
+    "items": {
+      "attrtype": [
+        {
+          "type": "string",
+          "value": "string",
+          "string": "string",
+        }
+      ],
+    },
+  }
+}
+```
+
+Which in turn will generate the following `attrbox` node:
+
+```json
+{
+  "type": "attrbox",
+  "data": {
+    "items": {
+      "attrtype": [
+        {
+          "type": "string",
+          "value": "string",
+          "string": "string",
+        },
+      ],
+    },
+    "hName": "aside",
+    "hProperties": {
+      "className": ["attrbox"],
+    },
+  },
+  "children": [
+    {
+      "type": "attrbox-title",
+      "data": {
+        "hName": "span",
+        "hProperties": {
+          "className": ["attrbox-title"],
+        },
+      }
+    },
+    {
+      "type": "attrbox-list",
+      "children": [{
+          "type": "attr-key",
+          "data": {
+            "hName": "dt"
+          },
+          "children": [{
+            "type": "text",
+            "value": "attrtype",
+          }],
+        },
+        {
+          "type": "attr-val",
+          "data": {
+            "hName": "dd"
+          },
+          "children": [{
+            "type": "text",
+            "value": "value",
+          }],
+        },
+      ],
+      "data": {
+        "hName": "dl"
+      },
+    },
+  ],
 }
 ```
 

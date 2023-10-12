@@ -1,18 +1,18 @@
 import type { TestCaseMdast } from '../types';
-import { nodeKinds } from './astNode';
+import { attrboxDataNode } from './astNode-data';
 
 
 export const prefixedSingleCases: TestCaseMdast[] = [
   {
     descr: 'prefixed; single; prefixed; w/out pad',
     mkdn: ':attrtype::string\n',
-    node: nodeKinds['single'],
+    node: attrboxDataNode['single'],
     opts: {},
   },
   {
     descr: 'prefixed; single; w/out whitespace',
     mkdn: ':attrtype::string\n',
-    node: nodeKinds['single'],
+    node: attrboxDataNode['single'],
     opts: {
       attrs: {
         toMarkdown: {
@@ -25,7 +25,7 @@ export const prefixedSingleCases: TestCaseMdast[] = [
   {
     descr: 'prefixed; single; w/ pad',
     mkdn: ': attrtype :: string\n',
-    node: nodeKinds['single'],
+    node: attrboxDataNode['single'],
     opts: {
       attrs: {
         toMarkdown: {

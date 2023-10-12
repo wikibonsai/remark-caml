@@ -38,6 +38,10 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
     },
   };
   const fullOpts: ReqOpts = merge(defaults, opts);
+  // 'defaults' ensure 'fullOpts.attrs' will be populated above
+  const format: string = fullOpts.attrs.toMarkdown.format;
+  const listKind: string = fullOpts.attrs.toMarkdown.listKind;
+  const prefixed: boolean = fullOpts.attrs.toMarkdown.prefixed;
 
   return {
     // TODO: I don't fully understand what this does, but I did my
@@ -55,7 +59,10 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
       // that the handler will be passed nodes of a specific type
 
       // note: name should match 'Node.type'
-      attrbox: handler as unknown as Handle,
+      // attrbox: handleNode as Handle,
+      // note: 'case-conversion' <-> caseConversion seems to not be working...
+      'attrbox-data': handler as unknown as Handle,
+      attrboxData: handler as unknown as Handle,
     }
   };
 
@@ -65,12 +72,27 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
     context: Context,
   ): string {
     const exit = context.enter('attrbox' as ConstructName);
+    const value: string = buildMkdn(node.data.items, context);
+    exit();
+    return value;
+  }
 
-    // 'defaults' ensure 'fullOpts.attrs' will be populated above
-    const format: string = fullOpts.attrs.toMarkdown.format;
-    const listKind: string = fullOpts.attrs.toMarkdown.listKind;
-    const prefixed: boolean = fullOpts.attrs.toMarkdown.prefixed;
+  // note: this handler will generate markdown from the content's top-level attrbox
+  // function handleNode(
+  //   node: (AttrBoxNode),
+  //   _: Uni.Parent | null | undefined,
+  //   context: Context,
+  // ): string {
+  //   attrboxFound = true;
 
+  //   const exit = context.enter('attrbox' as ConstructName);
+  //   const value: string = buildMkdn(node.data.items, context);
+
+  //   exit();
+  //   return value;
+  // }
+
+  function buildMkdn(attrs: any, context: Context): string {
     // init vars / build string value
     let value: string = '';
 
@@ -79,7 +101,8 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
       if (format === 'pad') { value += ' '; }
     }
 
-    for (const [key, items] of Object.entries(node.data.items)) {
+    for (const [key, items] of Object.entries(attrs)) {
+      const vals: (WikiAttrData | CamlValData)[] = items as (WikiAttrData | CamlValData)[];
       // key
       /* eslint-disable indent */
       const nodeKey: string = safe(
@@ -95,19 +118,21 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
         if (format === 'pad') { value += ' '; }
       }
       // values / items
-      for (let i = 0; i < items.length; i++) {
+      for (let i = 0; i < (items as unknown as any).length; i++) {
+        // todo: link to mdast-util-wikirefs instance
+        // this interface is to help cut down on interdependencies between caml + wikirefs
         // [[wikilink]] (taken from mdast-util-wikirefs)
-        if (items[i].type === 'wiki') {
-          const isLastItem: boolean = (i === (items.length - 1));
+        if (vals[i].type === 'wiki') {
+          const isLastItem: boolean = (i === (vals.length - 1));
           /* eslint-disable indent */
           const nodeFileName: string = safe(
                                               context, // todo: 'context' -> 'state' (see: https://github.com/syntax-tree/mdast-util-to-markdown/commit/e812c7954f8b8ea5dd68476c856cbfd7cc4c442b)
-                                              (<WikiAttrData> items[i]).filename,
+                                              (<WikiAttrData> vals[i]).filename,
                                               { before: '[', after: ']' } as SafeOptions,
                                             );
           /* eslint-enable indent */
           // single item or list comma-separated
-          if ((items.length === 1) || (listKind === 'comma')) {
+          if ((vals.length === 1) || (listKind === 'comma')) {
             value += `[[${nodeFileName}]]`;
             if (!isLastItem) {
               value += ',';
@@ -115,7 +140,7 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
             }
           }
           // multiple items, list mkdn-separated
-          if ((items.length > 1) && listKind === 'mkdn') {
+          if ((vals.length > 1) && listKind === 'mkdn') {
             value += `\n- [[${nodeFileName}]]`;
           }
           // add last newline after last item
@@ -124,8 +149,8 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
           }
         // primitive
         } else {
-          const camlItem: CamlValData = <CamlValData> items[i];
-          const isLastItem: boolean = (i === (items.length - 1));
+          const camlItem: CamlValData = <CamlValData> vals[i];
+          const isLastItem: boolean = (i === (vals.length - 1));
           /* eslint-disable indent */
           const nodeValue: string = safe(
                                           context,
@@ -134,7 +159,7 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
                                         );
           /* eslint-enable indent */
           // single item or list comma-separated
-          if ((items.length === 1) || (listKind === 'comma')) {
+          if ((vals.length === 1) || (listKind === 'comma')) {
             value += nodeValue;
             if (!isLastItem) {
               value += ',';
@@ -142,7 +167,7 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
             }
           }
           // multiple items, list mkdn-separated
-          if ((items.length > 1) && listKind === 'mkdn') {
+          if ((vals.length > 1) && listKind === 'mkdn') {
             value += `\n- ${nodeValue}`;
           }
           // add last newline after last item
@@ -152,8 +177,6 @@ export function toMarkdownCaml(this: any, opts: Partial<CamlOptions> = {}) {
         }
       }
     }
-
-    exit();
     return value;
   }
 }

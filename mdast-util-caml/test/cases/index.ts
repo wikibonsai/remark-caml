@@ -1,6 +1,6 @@
 // import
 
-import { TestCaseMdast } from '../types';
+import { TestCaseMdast, TestCaseMdastBuilder } from '../types';
 
 import { prefixedSingleCases } from './prefixed-single';
 import { prefixedListCommaCases } from './prefixed-list-comma';
@@ -8,6 +8,8 @@ import { prefixedListMkdnCases } from './prefixed-list-mkdn';
 import { unprefixedSingleCases } from './unprefixed-single';
 import { unprefixedListCommaCases } from './unprefixed-list-comma';
 import { unprefixedListMkdnCases } from './unprefixed-list-mkdn';
+
+import { mdastAttrBoxCases } from './mdast-attrbox-builder';
 
 /* eslint-disable indent */
 const mdastSingleCases   : TestCaseMdast[] = ([] as TestCaseMdast[]).concat(prefixedSingleCases)
@@ -19,6 +21,7 @@ const mdastListMkdnCases : TestCaseMdast[] = ([] as TestCaseMdast[]).concat(pref
 const mdastCases         : TestCaseMdast[] = ([] as TestCaseMdast[]).concat(mdastSingleCases)
                                                                     .concat(mdastListCommaCases)
                                                                     .concat(mdastListMkdnCases);
+const mdastBuilderCases  : TestCaseMdastBuilder[] = ([] as TestCaseMdastBuilder[]).concat(mdastAttrBoxCases);
 /* eslint-enable indent */
 
 // export
@@ -31,8 +34,11 @@ export { prefixedListMkdnCases } from './prefixed-list-mkdn';
 export { unprefixedListMkdnCases } from './unprefixed-list-mkdn';
 
 export {
+  // render cases
   mdastCases,
   mdastSingleCases,
   mdastListCommaCases,
   mdastListMkdnCases,
+  // builder cases
+  mdastBuilderCases
 };

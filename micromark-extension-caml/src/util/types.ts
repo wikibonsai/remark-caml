@@ -54,7 +54,7 @@ export interface ReqHtmlOpts {
 // (for html and ast)
 
 export type AttrData = {
-  [key: string]: AttrDataItem[];
+  [key: string]: (AttrDataPrimitive | WikiAttrData)[];
 }
 
 // same in remark-wikilinks

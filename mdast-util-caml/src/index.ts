@@ -3,6 +3,7 @@
 // mdast             : https://github.com/syntax-tree/mdast
 // hast              : https://github.com/syntax-tree/hast
 
+export { initAttrBox } from './lib/attrbox';
 export { fromMarkdownCaml } from './lib/fromMarkdown';
 export { toMarkdownCaml } from './lib/toMarkdown';
 

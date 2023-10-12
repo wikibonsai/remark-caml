@@ -1,83 +1,16 @@
-import type { AttrDataPrimitive } from 'micromark-extension-caml';
-import type {
-  AttrBoxNode,
-  AttrBoxTitleNode,
-  AttrBoxListNode,
-  AttrKeyNode,
-  AttrValNode,
-} from '../../src/util/types';
+import type { AttrBoxNode } from '../../src/util/types';
 
 
 export const singleNode: AttrBoxNode = {
   type: 'attrbox',
   data: {
     items: {
-      'attrtype': [{
-        type: 'string',
-        value: 'string',
-        string: 'string',
-      } as AttrDataPrimitive,],
-    },
-    hName: 'aside',
-    hProperties: {
-      className: ['attrbox'],
-    },
-  },
-  children: [
-    {
-      type: 'attrbox-title',
-      data: {
-        hName: 'span',
-        hProperties: {
-          className: ['attrbox-title'],
-        },
-      }
-    } as AttrBoxTitleNode,
-    {
-      type: 'attrbox-list',
-      children: [
-        {
-          type: 'attr-key',
-          data: { hName: 'dt' },
-          children: [{
-            type: 'text',
-            value: 'attrtype',
-          }],
-        } as AttrKeyNode,
-        {
-          type: 'attr-val',
-          data: { hName: 'dd' },
-          children: [{
-            type: 'text',
-            value: 'string',
-          }],
-        } as AttrValNode,
-      ],
-      data: { hName: 'dl' },
-    } as AttrBoxListNode,
-  ],
-};
-
-export const listNodes: AttrBoxNode = {
-  type: 'attrbox',
-  data: {
-    items: {
       'attrtype': [
         {
           type: 'string',
-          string: 'string-a',
-          value: 'string-a',
-        } as AttrDataPrimitive,
-        {
-          type: 'string',
-          string: 'string-b',
-          value: 'string-b',
-        } as AttrDataPrimitive,
-        {
-          type: 'string',
-          string: 'string-c',
-          value: 'string-c',
-        } as AttrDataPrimitive,
+          value: 'string',
+          string: 'string',
+        },
       ],
     },
     hName: 'aside',
@@ -98,7 +31,84 @@ export const listNodes: AttrBoxNode = {
         type: 'text',
         value: 'Attributes',
       }],
-    } as AttrBoxTitleNode,
+    },
+    {
+      type: 'attrbox-list',
+      children: [
+        {
+          type: 'attr-key',
+          data: { hName: 'dt' },
+          children: [{
+            type: 'text',
+            value: 'attrtype',
+          }],
+        },
+        {
+          type: 'attr-val',
+          data: { hName: 'dd' },
+          children: [
+            {
+              type: 'string',
+              data: {
+                hName: 'span',
+                hProperties: {
+                  className: ['attr', 'string', 'attrtype'],
+                },
+              },
+              children: [{
+                type: 'text',
+                value: 'string',
+              }],
+            }
+          ],
+        },
+      ],
+      data: { hName: 'dl' },
+    },
+  ],
+};
+
+export const listNodes: AttrBoxNode = {
+  type: 'attrbox',
+  data: {
+    items: {
+      'attrtype': [
+        {
+          type: 'string',
+          string: 'string-a',
+          value: 'string-a',
+        },
+        {
+          type: 'string',
+          string: 'string-b',
+          value: 'string-b',
+        },
+        {
+          type: 'string',
+          string: 'string-c',
+          value: 'string-c',
+        },
+      ],
+    },
+    hName: 'aside',
+    hProperties: {
+      className: ['attrbox'],
+    },
+  },
+  children: [
+    {
+      type: 'attrbox-title',
+      data: {
+        hName: 'span',
+        hProperties: {
+          className: ['attrbox-title'],
+        },
+      },
+      children: [{
+        type: 'text',
+        value: 'Attributes',
+      }],
+    },
     {
       type: 'attrbox-list',
       data: { hName: 'dl' },
@@ -110,37 +120,197 @@ export const listNodes: AttrBoxNode = {
             type: 'text',
             value: 'attrtype',
           }],
-        } as AttrKeyNode,
+        },
         {
           type: 'attr-val',
           data: { hName: 'dd' },
+          children: [
+            {
+              type: 'string',
+              data: {
+                hName: 'span',
+                hProperties: {
+                  className: ['attr', 'string', 'attrtype'],
+                },
+              },
+              children: [{
+                type: 'text',
+                value: 'string-a',
+              }],
+            }
+          ],
+        },
+        {
+          type: 'attr-val',
+          data: { hName: 'dd' },
+          children: [
+            {
+              type: 'string',
+              data: {
+                hName: 'span',
+                hProperties: {
+                  className: ['attr', 'string', 'attrtype'],
+                },
+              },
+              children: [{
+                type: 'text',
+                value: 'string-b',
+              }],
+            }
+          ],
+        },
+        {
+          type: 'attr-val',
+          data: { hName: 'dd' },
+          children: [
+            {
+              type: 'string',
+              data: {
+                hName: 'span',
+                hProperties: {
+                  className: ['attr', 'string', 'attrtype'],
+                },
+              },
+              children: [{
+                type: 'text',
+                value: 'string-c',
+              }],
+            }
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const mergedNodes: AttrBoxNode = {
+  type: 'attrbox',
+  data: {
+    items: {
+      'attrtype-1': [
+        {
+          type: 'string',
+          string: 'string-a',
+          value: 'string-a',
+        },
+        {
+          type: 'string',
+          string: 'string-b',
+          value: 'string-b',
+        },
+      ],
+      'attrtype-2': [
+        {
+          type: 'string',
+          string: 'string-c',
+          value: 'string-c',
+        },
+      ],
+    },
+    hName: 'aside',
+    hProperties: {
+      className: ['attrbox'],
+    },
+  },
+  children: [
+    {
+      type: 'attrbox-title',
+      data: {
+        hName: 'span',
+        hProperties: {
+          className: ['attrbox-title'],
+        },
+      },
+      children: [{
+        type: 'text',
+        value: 'Attributes',
+      }],
+    },
+    {
+      type: 'attrbox-list',
+      data: { hName: 'dl' },
+      children: [
+        {
+          type: 'attr-key',
+          data: { hName: 'dt' },
           children: [{
             type: 'text',
-            value: 'string-a',
+            value: 'attrtype-1',
           }],
         },
         {
           type: 'attr-val',
           data: { hName: 'dd' },
-          children: [{
-            type: 'text',
-            value: 'string-b',
-          }],
-        } as AttrValNode,
+          children: [
+            {
+              type: 'string',
+              data: {
+                hName: 'span',
+                hProperties: {
+                  className: ['attr', 'string', 'attrtype-1'],
+                },
+              },
+              children: [{
+                type: 'text',
+                value: 'string-a',
+              }],
+            }
+          ],
+        },
         {
           type: 'attr-val',
           data: { hName: 'dd' },
+          children: [
+            {
+              type: 'string',
+              data: {
+                hName: 'span',
+                hProperties: {
+                  className: ['attr', 'string', 'attrtype-1'],
+                },
+              },
+              children: [{
+                type: 'text',
+                value: 'string-b',
+              }],
+            }
+          ],
+        },
+        {
+          type: 'attr-key',
+          data: { hName: 'dt' },
           children: [{
             type: 'text',
-            value: 'string-c',
+            value: 'attrtype-2',
           }],
-        } as AttrValNode,
+        },
+        {
+          type: 'attr-val',
+          data: { hName: 'dd' },
+          children: [
+            {
+              type: 'string',
+              data: {
+                hName: 'span',
+                hProperties: {
+                  className: ['attr', 'string', 'attrtype-2'],
+                },
+              },
+              children: [{
+                type: 'text',
+                value: 'string-c',
+              }],
+            }
+          ],
+        },
       ],
-    } as AttrBoxListNode,
+    },
   ],
 };
 
-export const nodeKinds = {
-  'single': singleNode,
-  'list': listNodes,
+
+export const attrBoxNode = {
+  single: singleNode,
+  list: listNodes,
+  merged: mergedNodes,
 };

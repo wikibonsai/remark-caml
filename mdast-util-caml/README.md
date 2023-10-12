@@ -36,7 +36,26 @@ let ast = fromMarkdown(':attrtype::value\n', {
 })
 ```
 
-The corresponding node in the abstract syntax tree has the form below, where:
+...is first converted to a data node which takes the form below:
+
+```json
+{
+  "type": "attrbox-data",
+  "data": {
+    "items": {
+      "attrtype": [
+        {
+          "type": "string",
+          "value": "string",
+          "string": "string",
+        }
+      ],
+    },
+  }
+}
+```
+
+Data nodes like this are then extracted after render, are merged, and a single attrbox node is generated and inserted at the top of the document in the abstract syntax tree. It has the form below, where:
 
 * `data.items` contains the original markdown source parsed into the individual components of the caml attr.
 
@@ -45,11 +64,13 @@ The corresponding node in the abstract syntax tree has the form below, where:
   "type": "attrbox",
   "data": {
     "items": {
-      "attrtype": [{
-        "type": "string",
-        "value": "string",
-        "string": "string",
-      }],
+      "attrtype": [
+        {
+          "type": "string",
+          "value": "string",
+          "string": "string",
+        }
+      ],
     },
     "hName": "aside",
     "hProperties": {
