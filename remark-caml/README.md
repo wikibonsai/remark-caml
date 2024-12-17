@@ -115,6 +115,29 @@ Which in turn will generate the following `attrbox` node:
 }
 ```
 
+## Syntax
+
+For syntax specifications, see the [caml-spec](https://github.com/caml-mkdn/tree/main/spec) repo.
+
+## Options
+
+```js
+let opts = {
+  attrs: {
+    render: boolean;
+    title: string;
+  },
+  cssNames: {
+    attr: string;
+    attrbox: string;
+    attrboxTitle: string;
+    // [[wikilinks]]-related
+    invalid: string;
+    valid: string;
+  },
+};
+```
+
 ### Options Descriptions
 
 #### `attrs`

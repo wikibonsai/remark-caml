@@ -118,15 +118,18 @@ Data nodes like this are then extracted after render, are merged, and a single a
 }
 ```
 
+## Syntax
 
-### Options
+For syntax specifications, see the [caml-spec](https://github.com/caml-mkdn/tree/main/spec) repo.
+
+## Options
 
 ```js
 let opts = {
   attrs: {
     render: boolean;
     title: string;
-    css: {
+    cssNames: {
       attr: string;
       attrbox: string;
       attrboxTitle: string;

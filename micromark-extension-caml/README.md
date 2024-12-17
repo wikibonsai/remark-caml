@@ -35,7 +35,7 @@ The serialized result will be the following.  To get an abstract syntax tree, us
 
 While data is extracted and stored in data tokens, no HTML is generated at the `micromark` level. To render directly to html, use [`mdast-util-caml`](https://github.com/wikibonsai/remark/caml/tree/main/mdast-util-caml).
 
-### Options
+## Options
 
 ```js
 let opts = {
@@ -43,7 +43,7 @@ let opts = {
     render: boolean;
     title: string;
   },
-  css: {
+  cssNames: {
     attr: string;
     attrbox: string;
     attrboxTitle: string;
@@ -56,7 +56,7 @@ let opts = {
 
 ## Syntax
 
-For more on syntax specification, see the [caml](https://github.com/wikibonsai/caml/spec) repo.
+For syntax specifications, see the [caml-spec](https://github.com/caml-mkdn/tree/main/spec) repo.
 
 ### Options Descriptions
 
