@@ -1544,10 +1544,17 @@ caml-mkdn@^0.0.2:
   resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.2.tgz#4bdd7d4c2625e8d62fe05ff200ed3a8f9aa45965"
   integrity sha512-xe7ogLRSj209b1rP5bTsk4pLxgDQAkl/uqugo/48RVVjKN7aNlhVpXM60fCoaIsud29tbiJvI3GT6pC02wqRFA==
 
-caml-spec@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/caml-spec/-/caml-spec-0.0.1.tgz#ebd3782e5c45e5a944af6a4501bf15bd58646034"
-  integrity sha512-YWrqHFeMmaW0Yan3l+t5C54NMA2ej4yUgJlH82Umtag3qp/yDJcH6xMVNHN8jmcn5CNV0K56EUNReRZxAG6gKw==
+caml-mkdn@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.5.tgz#c278ea554d6514164e80edf9a3b0a793fd02bcee"
+  integrity sha512-on5PCV65Lvwy9jWjf4PXVvwEzBQQujE/S0YZlc2XH18Tc3jbmLk9iiccRmpbL8jd660Z7uxXWixdZGtAMIgaLw==
+  dependencies:
+    escape-mkdn "^0.0.3"
+
+caml-spec@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/caml-spec/-/caml-spec-0.0.2.tgz#87d8d1d060f2108a92e390988a4a95390e3bf9f4"
+  integrity sha512-K83kKdrJRmHtZPjnqjHhc2DaAmkUIQMljw2CAwSvZiVAJiTToID1zSVCSFZCJbU20qbYRU5QUk/1jB717NnyMQ==
 
 caniuse-lite@^1.0.30001449, caniuse-lite@^1.0.30001450:
   version "1.0.30001458"
