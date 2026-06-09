@@ -1,7 +1,7 @@
 {
   "name": "micromark-extension-caml",
   "private": false,
-  "version": "0.0.6-mm",
+  "version": "0.0.7-mm",
   "description": "Micromark syntax extension for caml (semantic) attributes.",
   "license": "GPL-3.0",
   "author": {
@@ -30,7 +30,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "caml-mkdn": "^0.0.2",
+    "caml-mkdn": "0.0.5",
     "lodash-es": "^4.17.21",
     "micromark-factory-space": "^1.0.0",
     "micromark-util-character": "^1.1.0",
@@ -51,7 +51,7 @@
     "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
-    "caml-spec": "^0.0.1",
+    "caml-spec": "^0.0.2",
     "del-cli": "^3.0.1",
     "eslint": "^8.27.0",
     "micromark": "^3.1.0",
