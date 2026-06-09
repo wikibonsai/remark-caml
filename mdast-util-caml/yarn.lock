@@ -1527,6 +1527,13 @@ camelcase@^6.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
+caml-mkdn@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.5.tgz#c278ea554d6514164e80edf9a3b0a793fd02bcee"
+  integrity sha512-on5PCV65Lvwy9jWjf4PXVvwEzBQQujE/S0YZlc2XH18Tc3jbmLk9iiccRmpbL8jd660Z7uxXWixdZGtAMIgaLw==
+  dependencies:
+    escape-mkdn "^0.0.3"
+
 caml-mkdn@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/caml-mkdn/-/caml-mkdn-0.0.2.tgz#4bdd7d4c2625e8d62fe05ff200ed3a8f9aa45965"
