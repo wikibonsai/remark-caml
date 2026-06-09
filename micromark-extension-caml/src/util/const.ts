@@ -64,7 +64,7 @@ export const keyUsableCharCodes = {
   uppercaseZ: 90, // `Z`
   backslash: 92, // `\`
   underscore: 95, // `_`
-  graveAccent: 96, // `` ` ``
+  // graveAccent (96) excluded: backtick starts inline code spans
   lowercaseA: 97, // `a`
   lowercaseB: 98, // `b`
   lowercaseC: 99, // `c`

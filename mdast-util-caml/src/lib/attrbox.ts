@@ -128,9 +128,11 @@ export function buildAttrBox(
     for (const [attrtype, items] of Object.entries(attrData)) {
       addAttrKey(attrbox, attrtype, fullOpts);
       for (const item of items as unknown as any) {
-        if (item.type === 'wiki') {
+        if (item.type === 'wiki' && item.filename !== undefined) {
+          // wikirefs-enriched wiki value (has filename, htmlHref, etc.)
           addWikiAttrVal(attrbox, attrtype, item, fullOpts);
         } else {
+          // primitive values and plain wiki values (from caml-mkdn resolve)
           addAttrVal(attrbox, attrtype, item, fullOpts);
         }
       }
@@ -164,15 +166,36 @@ export function addAttrVal(
   val: AttrDataPrimitive,
   fullOpts: ReqOpts,
 ): void {
+  // For multi-line strings, display the resolved value (folded/literal processed)
+  // For all other types, display the raw string
+  const displayText: string = (val.string && val.string.includes('\n'))
+    ? String(val.value)
+    : val.string;
+  // Build hast children for multi-line values: use <br> elements for newlines
+  // and preserve leading whitespace with &nbsp; so rehype doesn't collapse it
+  let hChildren: any[] | undefined;
+  if (displayText.includes('\n')) {
+    hChildren = [];
+    const lines = displayText.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      if (i > 0) {
+        hChildren.push({ type: 'element', tagName: 'br', properties: {}, children: [] });
+      }
+      if (lines[i].length > 0) {
+        // replace leading spaces with &nbsp; to prevent HTML whitespace collapse
+        const preserved = lines[i].replace(/^ +/, (spaces: string) =>
+          Array(spaces.length).fill('\u00a0').join('')
+        );
+        hChildren.push({ type: 'text', value: preserved });
+      }
+    }
+  }
   const valNode: AttrValNode = {
     type: 'attr-val',
     children: [
       {
         type: val.type,
-        children: [{
-          type: 'text',
-          value: val.string,
-        }],
+        children: [{ type: 'text', value: displayText }],
         data: {
           hName: 'span',
           hProperties: {
@@ -182,6 +205,7 @@ export function addAttrVal(
               key ? key.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') : 'key-error',
             ],
           },
+          ...(hChildren ? { hChildren } : {}),
         },
       },
     ],

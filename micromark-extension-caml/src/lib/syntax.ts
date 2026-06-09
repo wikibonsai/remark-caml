@@ -116,6 +116,8 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
     // escape comma-separation when in double or single quotes
     let inDoubleQuote: boolean = false;
     let inSingleQuote: boolean = false;
+    // multi-line string state
+    let isMultiLineStr: boolean = false;
 
     return start;
 
@@ -228,8 +230,15 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
         isListMkdn = true;
         return listMkdnItemStart(code);
       }
+      // multi-line string indicator (>, |, >-, >+, |-, |+)
+      if (code === codes.greaterThan || code === codes.verticalBar) {
+        isListComma = true;
+        isMultiLineStr = true;
+        effects.enter(CamlToken.camlValTxt);
+        return consumeMultiLineIndicator(code);
+      }
       // single / first comma
-      if ((code !== null) && RGX.VALID_CHARS.KEY.test(String.fromCharCode(code))) {
+      if ((code !== null) && RGX.VALID_CHARS.VAL.test(String.fromCharCode(code))) {
         isListComma = true;
         effects.enter(CamlToken.camlValTxt);
         return consumeValue(code);
@@ -264,6 +273,12 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
         effects.exit(CamlToken.camlListBullet);
         consumedBulletWhiteSpace = false;
         cursorListBulletMarker = 0;
+        // check for multi-line string indicator after bullet
+        if (code === codes.greaterThan || code === codes.verticalBar) {
+          isMultiLineStr = true;
+          effects.enter(CamlToken.camlValTxt);
+          return consumeMultiLineIndicator(code);
+        }
         effects.enter(CamlToken.camlValTxt);
         return consumeValue(code);
       }
@@ -307,7 +322,14 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
       if (hasValue && (markdownLineEnding(code) || (code === codes.eof))) {
         return done(code);
       }
-      if ((code !== null) && RGX.VALID_CHARS.KEY.test(String.fromCharCode(code))) {
+      // multi-line string indicator after comma
+      if (code === codes.greaterThan || code === codes.verticalBar) {
+        if (!inListComma) { return nok(code); }
+        isMultiLineStr = true;
+        effects.enter(CamlToken.camlValTxt);
+        return consumeMultiLineIndicator(code);
+      }
+      if ((code !== null) && RGX.VALID_CHARS.VAL.test(String.fromCharCode(code))) {
         if (!inListComma) { return nok(code); }
         effects.enter(CamlToken.camlValTxt);
         return consumeValue(code);
@@ -351,6 +373,67 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
       effects.consume(code);
       return consumeValue;
     }
+    // multi-line string: consume indicator (>, |, >-, >+, |-, |+)
+    function consumeMultiLineIndicator (code: Code): State | void {
+      // consume '>' or '|'
+      if (code === codes.greaterThan || code === codes.verticalBar) {
+        effects.consume(code);
+        return consumeMultiLineIndicatorSuffix;
+      }
+      return nok(code);
+    }
+
+    function consumeMultiLineIndicatorSuffix (code: Code): State | void {
+      // optional suffix: '-' (strip), '+' (keep)
+      if (code === codes.dash || code === codes.plusSign) {
+        effects.consume(code);
+        return consumeMultiLineExpectNewline;
+      }
+      // newline immediately after indicator
+      if (markdownLineEnding(code)) {
+        return consumeMultiLineExpectNewline(code);
+      }
+      // invalid: indicator must be followed by newline (or suffix then newline)
+      return nok(code);
+    }
+
+    function consumeMultiLineExpectNewline (code: Code): State | void {
+      if (markdownLineEnding(code)) {
+        hasValue = true;
+        return consumeMultiLineAtLineEnding(code);
+      }
+      // invalid: expected newline after indicator
+      return nok(code);
+    }
+
+    // at a line ending during multi-line string: attempt to continue
+    function consumeMultiLineAtLineEnding (code: Code): State | void {
+      if (markdownLineEnding(code) || code === codes.eof) {
+        return effects.attempt(
+          { partial: true, tokenize: consumeMultiLineLineEnding as any, },
+          consumeMultiLineContentRest,
+          consumeMultiLineDone,
+        )(code);
+      }
+      return consumeMultiLineDone(code);
+    }
+
+    function consumeMultiLineContentRest (code: Code): State | void {
+      // end of line
+      if (markdownLineEnding(code) || code === codes.eof) {
+        return consumeMultiLineAtLineEnding(code);
+      }
+      // consume any character on the line
+      effects.consume(code);
+      return consumeMultiLineContentRest;
+    }
+
+    function consumeMultiLineDone (code: Code): State | void {
+      effects.exit(CamlToken.camlValTxt);
+      isMultiLineStr = false;
+      return done(code);
+    }
+
     // fin(ish)
     function done (code: Code): State | void {
       if (!markdownLineEnding(code) && (code !== codes.eof)) { return nok(code); }
@@ -385,6 +468,35 @@ export const syntaxCaml = (function (opts?: Partial<CamlOptions>): Extension {
       if (markdownBullet(code)) {
         return ok(code);
       }
+      return nok(code);
+    }
+  }
+
+  function consumeMultiLineLineEnding(this: Tokenizer, effects: Effects, ok: State, nok: State): State {
+    return start;
+
+    function start (code: Code): State | void {
+      if (!markdownLineEnding(code)) { return nok(code); }
+      effects.enter(UnifiedTypeToken.lineEnding);
+      effects.consume(code);
+      effects.exit(UnifiedTypeToken.lineEnding);
+      return checkNext;
+    }
+
+    function checkNext (code: Code): State | void {
+      // blank line (another newline) — continue multi-line block (trailing newline for chomping)
+      if (markdownLineEnding(code)) {
+        return ok(code);
+      }
+      // indented line — continue multi-line block
+      if (markdownSpace(code)) {
+        return ok(code);
+      }
+      // EOF: include this newline in the token (trailing newline for folded mode)
+      if (code === codes.eof) {
+        return ok(code);
+      }
+      // non-indented, non-blank line — end multi-line block
       return nok(code);
     }
   }
